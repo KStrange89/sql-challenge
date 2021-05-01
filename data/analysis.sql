@@ -37,18 +37,68 @@ FROM dept_manager m
 LEFT JOIN departments d ON d.dept_no = m.dept_no
 LEFT JOIN employees e ON e.emp_no = m.emp_no;
 
--- select shit emps and dept
+-- List the department of each employee 
+-- with the following information: 
+-- employee number, last name, first name, and department name.
 
 SELECT
-	e.
+	e.emp_no,
+	e.last_name,
+	e.first_name,
+	d.dept_name
+FROM dept_emp de
+LEFT JOIN employees e ON de.emp_no = e.emp_no
+LEFT JOIN departments d ON de.dept_no = d.dept_no;
 
--- select emp shit for certain people
+-- List first name, last name, and sex for 
+-- employees whose first name is "Hercules" and 
+-- last names begin with "B."
+SELECT
+	e.first_name,
+	e.last_name,
+	e.sex
+FROM employees e 
+	WHERE 
+		e.first_name = 'Hercules'
+		AND
+		e.last_name like 'B%'
 
--- select shit from emps and dept where depts like '%sale%'
+-- List all employees in the Sales department, 
+-- including their employee number, last name, 
+-- first name, and department name.
 
--- same as above but also do development dept
+SELECT
+	e.emp_no,
+	e.last_name,
+	e.first_name,
+	d.dept_name
+FROM dept_emp de
+LEFT JOIN employees e ON de.emp_no = e.emp_no
+LEFT JOIN departments d ON de.dept_no = d.dept_no
+WHERE dept_name = 'Sales';
 
--- select emp last name count desc
+-- List all employees in the Sales and Development 
+-- departments, including their employee number, 
+-- last name, first name, and department name.
 
--- fin cept for bonus
+SELECT
+	e.emp_no,
+	e.last_name,
+	e.first_name,
+	d.dept_name
+FROM dept_emp de
+LEFT JOIN employees e ON de.emp_no = e.emp_no
+LEFT JOIN departments d ON de.dept_no = d.dept_no
+WHERE dept_name = 'Sales' OR dept_name  ='Development';
+
+--In descending order, list the frequency count of 
+-- employee last names
+
+SELECT	
+	e.last_name,
+	COUNT(e.last_name)
+FROM employees e
+GROUP BY e.last_name
+ORDER BY count(e.last_name) DESC;
+
 
